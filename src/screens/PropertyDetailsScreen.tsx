@@ -10,23 +10,23 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors, spacing, borderRadius, shadows, typography } from '../constants/theme';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useBookingStore } from '../store/bookingStore';
+import { RootStackParamList } from '../Navigation/AppNavigator';
+import { PROPERTIES } from '../data/Properties';
+
 
 const PropertyDetailsScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
 
-  const property = {
-    name: 'The Alpina Gstaad',
-    rating: 4.9,
-    location: 'Swiss Alps, Switzerland',
-    duration: '3 Days',
-    guests: '2 Guests',
-    season: 'Dec–Mar',
-    bestTime: 'December to March',
-    description:
-      'A discreet luxury hotel offering breathtaking views of the Bernese Alps and a Michelin-starred culinary experience. Discover a world where luxury meets nature in a seamless dance.\n\nEvery detail has been curated to provide you with the ultimate retreat, from the heated pools overlooking the glacier to the private wine cellar.',
-    price: 1250,
-    image: 'https://picsum.photos/500/400?random=10',
-  };
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const propertyId = useBookingStore((s) => s.propertyId);
+const property = PROPERTIES.find((p) => p.id === propertyId);
+
+if (!property) return null;
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,26 +35,25 @@ const PropertyDetailsScreen: React.FC = () => {
         contentContainerStyle={{ paddingBottom: 140 }}
       >
         {/* Hero Image */}
-        <Image source={{ uri: property.image }} style={styles.heroImage} />
+        <Image source={{ uri: property?.image }} style={styles.heroImage} />
 
         <View style={styles.content}>
           {/* Header */}
           <View style={styles.header}>
-            <Text style={styles.title}>{property.name}</Text>
+            <Text style={styles.title}>{property?.name}</Text>
 
             <View style={styles.rating}>
               <MaterialIcons name="star" size={16} color={colors.accent} />
-              <Text style={styles.ratingText}>{property.rating}</Text>
+              <Text style={styles.ratingText}>{property?.rating}</Text>
             </View>
           </View>
 
-          <Text style={styles.location}>{property.location}</Text>
-
+          <Text style={styles.location}>{property?.location}</Text>   
           {/* Info Cards */}
           <View style={styles.infoRow}>
-            <InfoCard icon="schedule" label="Duration" value={property.duration} />
-            <InfoCard icon="people" label="Capacity" value={property.guests} />
-            <InfoCard icon="calendar-today" label="Best time" value={property.season} />
+            <InfoCard icon="schedule" label="Duration" value={property?.duration} />
+            <InfoCard icon="people" label="Capacity" value={property?.guests} />
+            <InfoCard icon="calendar-today" label="Best time" value={property?.season} />
           </View>
 
           {/* Best Time Banner */}
@@ -91,12 +90,14 @@ const PropertyDetailsScreen: React.FC = () => {
       >
         <View>
           <Text style={styles.priceLabel}>Pricing from</Text>
-          <Text style={styles.price}>${property.price}
+          <Text style={styles.price}>${property.pricePerNight}
             <Text style={styles.priceUnit}> / night</Text>
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.bookButton} activeOpacity={0.9}>
+        <TouchableOpacity
+        onPress={() => navigation.navigate('DateSelection')}
+        style={styles.bookButton} activeOpacity={0.9}>
           <Text style={styles.bookButtonText}>Book Your Stay</Text>
         </TouchableOpacity>
       </View>

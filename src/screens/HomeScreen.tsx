@@ -10,6 +10,10 @@ import {
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors, spacing, borderRadius, shadows, typography } from '../constants/theme';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../Navigation/AppNavigator';
+import { useBookingStore } from '../store/bookingStore';
 
 type Category = 'All' | 'Mountains' | 'Beach' | 'Desert';
 
@@ -23,6 +27,12 @@ interface StayCard {
 }
 
 const HomeScreen: React.FC = () => {
+
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const setPropertyId = useBookingStore((s) => s.setPropertyId);
+
+
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
 
   const categories: Category[] = ['All', 'Mountains', 'Beach', 'Desert'];
@@ -122,7 +132,12 @@ const HomeScreen: React.FC = () => {
           contentContainerStyle={styles.staysScroll}
         >
           {featuredStays.map((stay) => (
-            <TouchableOpacity key={stay.id} style={styles.stayCard}>
+            <TouchableOpacity
+              onPress={() => {
+                setPropertyId(stay.id);
+                navigation.navigate('PropertyDetails');
+              }}
+              key={stay.id} style={styles.stayCard}>
               <Image source={{ uri: stay.image }} style={styles.stayImage} />
 
               <View style={styles.stayContent}>

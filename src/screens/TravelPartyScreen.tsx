@@ -8,15 +8,23 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors, spacing, borderRadius, shadows, typography } from '../constants/theme';
+import { useBookingStore } from '../store/bookingStore';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../Navigation/AppNavigator';
 
 const TravelPartyScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
+  const navigation =
+  useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+
+  const { guests, setGuests, cabinClass, setCabinClass } = useBookingStore();
 
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons name="arrow-back-ios" size={20} color={colors.text} />
         </TouchableOpacity>
 
@@ -26,7 +34,7 @@ const TravelPartyScreen: React.FC = () => {
           <View style={styles.indicatorInactive} />
         </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.popToTop()}>
           <MaterialIcons name="close" size={22} color={colors.textMuted} />
         </TouchableOpacity>
       </View>
@@ -39,11 +47,43 @@ const TravelPartyScreen: React.FC = () => {
         </Text>
       </View>
 
-      {/* Guest Cards */}
+      {/* Guests */}
       <View style={styles.card}>
-        <GuestRow label="Adults" subLabel="Over 12 years old" value={2} />
-        <GuestRow label="Children" subLabel="Over 2 years old" value={0} />
-        <GuestRow label="Infants" subLabel="Under 2 years old" value={0} />
+        <GuestRow
+          label="Adults"
+          subLabel="Over 12 years old"
+          value={guests.adults}
+          onIncrement={() =>
+            setGuests({ ...guests, adults: guests.adults + 1 })
+          }
+          onDecrement={() =>
+            setGuests({ ...guests, adults: Math.max(1, guests.adults - 1) })
+          }
+        />
+
+        <GuestRow
+          label="Children"
+          subLabel="Over 2 years old"
+          value={guests.children}
+          onIncrement={() =>
+            setGuests({ ...guests, children: guests.children + 1 })
+          }
+          onDecrement={() =>
+            setGuests({ ...guests, children: Math.max(0, guests.children - 1) })
+          }
+        />
+
+        <GuestRow
+          label="Infants"
+          subLabel="Under 2 years old"
+          value={guests.infants}
+          onIncrement={() =>
+            setGuests({ ...guests, infants: guests.infants + 1 })
+          }
+          onDecrement={() =>
+            setGuests({ ...guests, infants: Math.max(0, guests.infants - 1) })
+          }
+        />
       </View>
 
       {/* Cabin Class */}
@@ -51,13 +91,41 @@ const TravelPartyScreen: React.FC = () => {
         <Text style={styles.cabinLabel}>CABIN CLASS</Text>
 
         <View style={styles.segment}>
-          <View style={styles.segmentItem}>
-            <Text style={styles.segmentText}>Business</Text>
-          </View>
+          <TouchableOpacity
+            style={[
+              styles.segmentItem,
+              cabinClass === 'business' && styles.segmentActive,
+            ]}
+            onPress={() => setCabinClass('business')}
+          >
+            <Text
+              style={
+                cabinClass === 'business'
+                  ? styles.segmentTextActive
+                  : styles.segmentText
+              }
+            >
+              Business
+            </Text>
+          </TouchableOpacity>
 
-          <View style={[styles.segmentItem, styles.segmentActive]}>
-            <Text style={styles.segmentTextActive}>First Class</Text>
-          </View>
+          <TouchableOpacity
+            style={[
+              styles.segmentItem,
+              cabinClass === 'first' && styles.segmentActive,
+            ]}
+            onPress={() => setCabinClass('first')}
+          >
+            <Text
+              style={
+                cabinClass === 'first'
+                  ? styles.segmentTextActive
+                  : styles.segmentText
+              }
+            >
+              First Class
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -68,7 +136,11 @@ const TravelPartyScreen: React.FC = () => {
           { paddingBottom: insets.bottom + spacing.lg },
         ]}
       >
-        <TouchableOpacity style={styles.continueButton} activeOpacity={0.9}>
+        <TouchableOpacity
+          style={styles.continueButton}
+          activeOpacity={0.9}
+          onPress={() => navigation.navigate('BookingConfirmed' as never)}
+        >
           <Text style={styles.continueText}>Continue</Text>
         </TouchableOpacity>
       </View>
@@ -76,16 +148,20 @@ const TravelPartyScreen: React.FC = () => {
   );
 };
 
-/* ---------- Sub Components ---------- */
+/* ---------- Guest Row ---------- */
 
 const GuestRow = ({
   label,
   subLabel,
   value,
+  onIncrement,
+  onDecrement,
 }: {
   label: string;
   subLabel: string;
   value: number;
+  onIncrement: () => void;
+  onDecrement: () => void;
 }) => (
   <View style={styles.guestRow}>
     <View>
@@ -94,13 +170,13 @@ const GuestRow = ({
     </View>
 
     <View style={styles.counter}>
-      <TouchableOpacity style={styles.counterButton}>
+      <TouchableOpacity style={styles.counterButton} onPress={onDecrement}>
         <MaterialIcons name="remove" size={18} color={colors.textMuted} />
       </TouchableOpacity>
 
       <Text style={styles.counterValue}>{value}</Text>
 
-      <TouchableOpacity style={styles.counterButton}>
+      <TouchableOpacity style={styles.counterButton} onPress={onIncrement}>
         <MaterialIcons name="add" size={18} color={colors.textMuted} />
       </TouchableOpacity>
     </View>

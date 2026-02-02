@@ -8,18 +8,39 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors, spacing, borderRadius, shadows, typography } from '../constants/theme';
+import { useBookingStore } from '../store/bookingStore';
+import { useNavigation } from 'expo-router';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../Navigation/AppNavigator';
 
 const DateSelectionScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
 
-  const selectedStart = 12;
-  const selectedEnd = 18;
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const { dates, setDates } = useBookingStore();
+
+  const [startDate, setStartDate] = React.useState<number | null>(null);
+  const [endDate, setEndDate] = React.useState<number | null>(null);
+
+  const handleDatePress = (day: number) => {
+    if (!startDate || (startDate && endDate)) {
+      setStartDate(day);
+      setEndDate(null);
+    } else if (day >= startDate) {
+      setEndDate(day);
+    }
+  };
 
   const calendarDays = Array.from({ length: 31 }, (_, i) => i + 1);
   const weekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
-  const isSelected = (day: number) =>
-    day >= selectedStart && day <= selectedEnd;
+  const isSelected = (day: number) => {
+    if (!startDate) return false;
+    if (startDate && !endDate) return day === startDate;
+    return day >= startDate && day <= endDate!;
+  };
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -98,7 +119,19 @@ const DateSelectionScreen: React.FC = () => {
           { paddingBottom: insets.bottom + spacing.lg },
         ]}
       >
-        <TouchableOpacity style={styles.continueButton} activeOpacity={0.9}>
+        <TouchableOpacity
+          onPress={() => {
+            if (!startDate || !endDate) return;
+
+            setDates({
+              checkIn: `2025-12-${String(startDate).padStart(2, '0')}`,
+              checkOut: `2025-12-${String(endDate).padStart(2, '0')}`,
+            });
+
+            navigation.navigate('TravelParty');
+          }}
+
+          style={styles.continueButton} activeOpacity={0.9}>
           <Text style={styles.continueText}>Continue</Text>
         </TouchableOpacity>
       </View>

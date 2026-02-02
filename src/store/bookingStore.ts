@@ -15,6 +15,15 @@ export interface Guests {
   infants: number;
 }
 
+export interface GuestRowProps {
+  label: string;
+  subLabel: string;
+  value: number;
+  onIncrement: () => void;
+  onDecrement: () => void;
+}
+
+
 interface BookingState {
   propertyId: string | null;
   dates: BookingDates;

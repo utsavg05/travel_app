@@ -8,63 +8,67 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors, spacing, borderRadius, shadows, typography } from '../constants/theme';
+import { useBookingStore } from '../store/bookingStore';
+import { useNavigation } from '@react-navigation/native';
+import { PROPERTIES } from '../data/Properties';
+import { RootStackParamList } from '../Navigation/AppNavigator';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const BookingConfirmedScreen: React.FC = () => {
+  const navigation =
+  useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const insets = useSafeAreaInsets();
+
+  const { propertyId, dates, guests, cabinClass, resetBooking } =
+    useBookingStore();
+
+  const property = PROPERTIES.find((p) => p.id === propertyId);
+
+  if (!property) return null;
 
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
-          <MaterialIcons name="arrow-back-ios" size={20} color={colors.text} />
-        </TouchableOpacity>
-
+        <View />
         <View style={styles.indicators}>
           <View style={styles.indicator} />
           <View style={styles.indicator} />
           <View style={styles.indicator} />
         </View>
-
-        <TouchableOpacity>
-          <MaterialIcons name="close" size={22} color={colors.textMuted} />
-        </TouchableOpacity>
+        <View />
       </View>
 
       {/* Content */}
       <View style={styles.content}>
-        {/* Success Icon */}
         <View style={styles.successCircle}>
           <MaterialIcons name="check" size={32} color={colors.primary} />
         </View>
 
         <Text style={styles.title}>Booking Confirmed!</Text>
+
         <Text style={styles.subtitle}>
-          Pack your bags, Vanessa! Your luxury escape to The Alpina Gstaad is all set.
+          Pack your bags! Your luxury escape to {property.name} is all set.
         </Text>
 
-        {/* Summary Card */}
+        {/* Summary */}
         <View style={styles.summaryCard}>
           <Text style={styles.summaryLabel}>SUMMARY</Text>
 
-          <View style={styles.summaryRow}>
-            <View style={styles.propertyIcon}>
-              <MaterialIcons name="apartment" size={20} color={colors.accent} />
-            </View>
+          <Text style={styles.propertyName}>{property.name}</Text>
 
-            <View style={styles.summaryContent}>
-              <Text style={styles.propertyName}>The Alpina Gstaad</Text>
-              <Text style={styles.summaryText}>
-                2025-12-12 – 2025-12-18
-              </Text>
-            </View>
-          </View>
+          <Text style={styles.summaryText}>
+            {dates.checkIn} – {dates.checkOut}
+          </Text>
 
-          <View style={styles.divider} />
+          <Text style={styles.summaryText}>
+            {guests.adults} Adults
+            {guests.children > 0 && `, ${guests.children} Children`}
+            {guests.infants > 0 && `, ${guests.infants} Infants`}
+          </Text>
 
-          <Text style={styles.confirmationText}>
-            A confirmation email has been sent to{'\n'}
-            <Text style={styles.email}>vanessa@alpina.travel</Text>
+          <Text style={styles.summaryText}>
+            Cabin: {cabinClass === 'first' ? 'First Class' : 'Business'}
           </Text>
         </View>
       </View>
@@ -76,7 +80,13 @@ const BookingConfirmedScreen: React.FC = () => {
           { paddingBottom: insets.bottom + spacing.lg },
         ]}
       >
-        <TouchableOpacity style={styles.backButton} activeOpacity={0.9}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => {
+            resetBooking();
+            navigation.popToTop();
+          }}
+        >
           <Text style={styles.backButtonText}>Back to Trips</Text>
         </TouchableOpacity>
       </View>

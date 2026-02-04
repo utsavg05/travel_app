@@ -1,11 +1,11 @@
-import { SafeAreaView } from "react-native";
-import HomeScreen from "./screens/HomeScreen";
-import { colors } from "./constants/theme";
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { colors } from '../src/constants/theme';
+import AppNavigator from '../src/Navigation/AppNavigator';
 
 export default function Index() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
-      <HomeScreen />
+      <AppNavigator />
     </SafeAreaView>
   );
 }

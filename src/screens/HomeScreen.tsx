@@ -39,7 +39,7 @@ const HomeScreen: React.FC = () => {
 
   const featuredStays: StayCard[] = [
     {
-      id: '1',
+      id: 'Alpina Gstaad',
       name: 'The Alpina Gstaad',
       location: 'Swiss Alps, Switzerland',
       rating: 4.9,
@@ -47,7 +47,7 @@ const HomeScreen: React.FC = () => {
       image: 'https://picsum.photos/400/300?random=1',
     },
     {
-      id: '2',
+      id: 'Tokyo',
       name: 'Aman Tokyo',
       location: 'Tokyo, Japan',
       rating: 4.8,
@@ -55,7 +55,7 @@ const HomeScreen: React.FC = () => {
       image: 'https://picsum.photos/400/300?random=2',
     },
     {
-      id: '3',
+      id: 'six-senses',
       name: 'The Alpina Gstaad',
       location: 'Swiss Alps, Switzerland',
       rating: 4.9,
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: spacing.lg,
     marginTop: spacing.lg,
-    paddingVertical: spacing.md,
+    paddingVertical: spacing.sm,
     paddingHorizontal: spacing.lg,
     backgroundColor: colors.cardBackground,
     borderRadius: borderRadius.xl,

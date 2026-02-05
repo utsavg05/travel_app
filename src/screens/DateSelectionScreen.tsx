@@ -9,7 +9,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors, spacing, borderRadius, shadows, typography } from '../constants/theme';
 import { useBookingStore } from '../store/bookingStore';
-import { useNavigation } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../Navigation/AppNavigator';
 
@@ -82,8 +82,8 @@ const DateSelectionScreen: React.FC = () => {
 
         {/* Week Days */}
         <View style={styles.weekRow}>
-          {weekDays.map((day) => (
-            <Text key={day} style={styles.weekDay}>
+          {weekDays.map((day, index) => (
+             <Text key={`${day}-${index}`} style={styles.weekDay}>
               {day}
             </Text>
           ))}

@@ -16,7 +16,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const BookingConfirmedScreen: React.FC = () => {
   const navigation =
-  useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const insets = useSafeAreaInsets();
 
   const { propertyId, dates, guests, cabinClass, resetBooking } =
@@ -63,9 +63,14 @@ const BookingConfirmedScreen: React.FC = () => {
 
           <Text style={styles.summaryText}>
             {guests.adults} Adults
-            {guests.children > 0 && `, ${guests.children} Children`}
-            {guests.infants > 0 && `, ${guests.infants} Infants`}
+            {guests.children > 0 && (
+              <Text>, {guests.children} Children</Text>
+            )}
+            {guests.infants > 0 && (
+              <Text>, {guests.infants} Infants</Text>
+            )}
           </Text>
+
 
           <Text style={styles.summaryText}>
             Cabin: {cabinClass === 'first' ? 'First Class' : 'Business'}

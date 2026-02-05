@@ -1,17 +1,17 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
-import { colors, spacing, borderRadius, shadows, typography } from '../constants/theme';
-import { useBookingStore } from '../store/bookingStore';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { borderRadius, colors, shadows, spacing, typography } from '../constants/theme';
 import { RootStackParamList } from '../Navigation/AppNavigator';
+import { useBookingStore } from '../store/bookingStore';
 
 const DateSelectionScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
@@ -46,7 +46,7 @@ const DateSelectionScreen: React.FC = () => {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons name="arrow-back-ios" size={20} color={colors.text} />
         </TouchableOpacity>
 
@@ -56,7 +56,7 @@ const DateSelectionScreen: React.FC = () => {
           <View style={styles.indicatorInactive} />
         </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons name="close" size={22} color={colors.textMuted} />
         </TouchableOpacity>
       </View>
@@ -83,7 +83,7 @@ const DateSelectionScreen: React.FC = () => {
         {/* Week Days */}
         <View style={styles.weekRow}>
           {weekDays.map((day, index) => (
-             <Text key={`${day}-${index}`} style={styles.weekDay}>
+            <Text key={`${day}-${index}`} style={styles.weekDay}>
               {day}
             </Text>
           ))}
@@ -92,12 +92,14 @@ const DateSelectionScreen: React.FC = () => {
         {/* Calendar */}
         <View style={styles.calendarGrid}>
           {calendarDays.map((day) => (
-            <View
+            <TouchableOpacity
               key={day}
+              onPress={() => handleDatePress(day)}
               style={[
                 styles.dayCell,
                 isSelected(day) && styles.daySelected,
               ]}
+              activeOpacity={0.7}
             >
               <Text
                 style={[
@@ -107,7 +109,7 @@ const DateSelectionScreen: React.FC = () => {
               >
                 {day}
               </Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </View>

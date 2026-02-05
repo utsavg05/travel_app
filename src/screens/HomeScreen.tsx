@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  TextInput,
-} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { colors, spacing, borderRadius, shadows, typography } from '../constants/theme';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { borderRadius, colors, shadows, spacing, typography } from '../constants/theme';
 import { RootStackParamList } from '../Navigation/AppNavigator';
 import { useBookingStore } from '../store/bookingStore';
 
@@ -39,7 +39,7 @@ const HomeScreen: React.FC = () => {
 
   const featuredStays: StayCard[] = [
     {
-      id: 'Alpina Gstaad',
+      id: 'alpina-gstaad',
       name: 'The Alpina Gstaad',
       location: 'Swiss Alps, Switzerland',
       rating: 4.9,
@@ -47,20 +47,12 @@ const HomeScreen: React.FC = () => {
       image: 'https://picsum.photos/400/300?random=1',
     },
     {
-      id: 'Tokyo',
+      id: 'aman-tokyo',
       name: 'Aman Tokyo',
       location: 'Tokyo, Japan',
       rating: 4.8,
       price: 980,
       image: 'https://picsum.photos/400/300?random=2',
-    },
-    {
-      id: 'six-senses',
-      name: 'The Alpina Gstaad',
-      location: 'Swiss Alps, Switzerland',
-      rating: 4.9,
-      price: 1250,
-      image: 'https://picsum.photos/400/300?random=1',
     },
   ];
 
@@ -127,8 +119,10 @@ const HomeScreen: React.FC = () => {
 
         {/* Featured Stays Horizontal Scroll */}
         <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
+          // horizontal
+          // showsHorizontalScrollIndicator={false}
+          horizontal={false}
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.staysScroll}
         >
           {featuredStays.map((stay) => (
@@ -164,9 +158,8 @@ const HomeScreen: React.FC = () => {
       {/* Bottom Navigation (UI only) */}
       <View style={styles.bottomNav}>
         <MaterialIcons name="home" size={26} color={colors.primary} />
-        <MaterialIcons name="explore" size={24} color={colors.textMuted} />
+        <MaterialIcons name="luggage" size={24} color={colors.textMuted} />
         <MaterialIcons name="favorite-border" size={24} color={colors.textMuted} />
-        <MaterialIcons name="bookmarks" size={24} color={colors.textMuted} />
         <MaterialIcons name="person-outline" size={24} color={colors.textMuted} />
       </View>
     </View>
@@ -273,7 +266,7 @@ const styles = StyleSheet.create({
     gap: spacing.lg,
   },
   stayCard: {
-    width: 260,
+    width: '100%',
     backgroundColor: colors.cardBackground,
     borderRadius: borderRadius.lg,
     overflow: 'hidden',

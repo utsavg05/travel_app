@@ -15,6 +15,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useBookingStore } from '../store/bookingStore';
 import { RootStackParamList } from '../Navigation/AppNavigator';
 import { PROPERTIES } from '../data/Properties';
+import { DESTINATIONS } from '../data/destinations';
 
 
 const PropertyDetailsScreen: React.FC = () => {
@@ -23,9 +24,19 @@ const PropertyDetailsScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const propertyId = useBookingStore((s) => s.propertyId);
-  const property = PROPERTIES.find((p) => p.id === propertyId);
+  // const property = PROPERTIES.find((p) => p.id === propertyId);
+  const property = DESTINATIONS.find((p) => p.id === propertyId);
 
-  if (!property) return null;
+
+  // if (!property) return null;
+  if (!property) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ color: 'red' }}>Property not found</Text>
+    </View>
+  );
+}
+
 
 
   return (
@@ -52,7 +63,7 @@ const PropertyDetailsScreen: React.FC = () => {
           {/* Info Cards */}
           <View style={styles.infoRow}>
             <InfoCard icon="schedule" label="Duration" value={property?.duration} />
-            <InfoCard icon="people" label="Capacity" value={property?.guests} />
+            <InfoCard icon="people" label="Capacity" value={property?.maxGuests} />
             <InfoCard icon="calendar-today" label="Best time" value={property?.season} />
           </View>
 

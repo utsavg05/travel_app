@@ -156,12 +156,14 @@ const HomeScreen: React.FC = () => {
       </ScrollView>
 
       {/* Bottom Navigation (UI only) */}
-      <View style={styles.bottomNav}>
+      {/* <View style={styles.bottomNav}>
         <MaterialIcons name="home" size={26} color={colors.primary} />
+        <TouchableOpacity onPress={() => navigation.navigate('Trips' as never)}>
         <MaterialIcons name="luggage" size={24} color={colors.textMuted} />
+        </TouchableOpacity>
         <MaterialIcons name="favorite-border" size={24} color={colors.textMuted} />
         <MaterialIcons name="person-outline" size={24} color={colors.textMuted} />
-      </View>
+      </View> */}
     </View>
   );
 };

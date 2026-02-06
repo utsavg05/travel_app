@@ -23,9 +23,9 @@ const PropertyDetailsScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const propertyId = useBookingStore((s) => s.propertyId);
-const property = PROPERTIES.find((p) => p.id === propertyId);
+  const property = PROPERTIES.find((p) => p.id === propertyId);
 
-if (!property) return null;
+  if (!property) return null;
 
 
   return (
@@ -48,7 +48,7 @@ if (!property) return null;
             </View>
           </View>
 
-          <Text style={styles.location}>{property?.location}</Text>   
+          <Text style={styles.location}>{property?.location}</Text>
           {/* Info Cards */}
           <View style={styles.infoRow}>
             <InfoCard icon="schedule" label="Duration" value={property?.duration} />
@@ -96,8 +96,8 @@ if (!property) return null;
         </View>
 
         <TouchableOpacity
-        onPress={() => navigation.navigate('DateSelection')}
-        style={styles.bookButton} activeOpacity={0.9}>
+          onPress={() => navigation.navigate('DateSelection')}
+          style={styles.bookButton} activeOpacity={0.9}>
           <Text style={styles.bookButtonText}>Book Your Stay</Text>
         </TouchableOpacity>
       </View>

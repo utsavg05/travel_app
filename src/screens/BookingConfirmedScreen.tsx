@@ -1,30 +1,45 @@
+import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import {
-  View,
-  Text,
   StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
+import ConfettiCannon from 'react-native-confetti-cannon';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { MaterialIcons } from '@expo/vector-icons';
-import { colors, spacing, borderRadius, shadows, typography } from '../constants/theme';
-import { useBookingStore } from '../store/bookingStore';
-import { useNavigation } from '@react-navigation/native';
+import { borderRadius, colors, shadows, spacing, typography } from '../constants/theme';
 import { PROPERTIES } from '../data/Properties';
 import { RootStackParamList } from '../Navigation/AppNavigator';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useBookingStore } from '../store/bookingStore';
 
 const BookingConfirmedScreen: React.FC = () => {
+
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const insets = useSafeAreaInsets();
 
-  const { propertyId, dates, guests, cabinClass, resetBooking } =
+  const { propertyId, dates, guests, cabinClass, resetBooking, addTrip } =
     useBookingStore();
 
   const property = PROPERTIES.find((p) => p.id === propertyId);
-
   if (!property) return null;
+
+  const handleBackToTrips = () => {
+    addTrip({
+      id: Date.now().toString(),
+      propertyId: property.id,
+      checkIn: dates.checkIn!,
+      checkOut: dates.checkOut!,
+      guests,
+      cabinClass,
+    });
+
+    resetBooking();
+    navigation.navigate('Tabs', { screen: 'TripsTab' } as never);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,6 +68,7 @@ const BookingConfirmedScreen: React.FC = () => {
 
         {/* Summary */}
         <View style={styles.summaryCard}>
+
           <Text style={styles.summaryLabel}>SUMMARY</Text>
 
           <Text style={styles.propertyName}>{property.name}</Text>
@@ -77,6 +93,7 @@ const BookingConfirmedScreen: React.FC = () => {
           </Text>
         </View>
       </View>
+      <ConfettiCannon count={200} origin={{ x: -10, y: 0 }} />
 
       {/* CTA */}
       <View
@@ -87,15 +104,13 @@ const BookingConfirmedScreen: React.FC = () => {
       >
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => {
-            resetBooking();
-            navigation.popToTop();
-          }}
+          onPress={handleBackToTrips}
         >
           <Text style={styles.backButtonText}>Back to Trips</Text>
         </TouchableOpacity>
+
       </View>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 

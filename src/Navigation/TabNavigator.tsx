@@ -7,6 +7,7 @@ import { colors } from '../constants/theme';
 import ProfileScreen from '../screens/ProfileScreen';
 import { useMemo } from 'react';
 import { Text } from 'react-native';
+import ExploreScreen from '../screens/ExploreScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,6 +36,16 @@ export default function TabNavigator() {
             <MaterialIcons name="home" size={26} color={color} />
           ),
         }}
+      />
+
+      <Tab.Screen
+      name='ExploreTab'
+      component={ExploreScreen}
+      options={{
+        tabBarIcon: ({color} ) => (
+            <MaterialIcons name='explore' size={24} color={color} />
+        )
+      }}
       />
 
       <Tab.Screen

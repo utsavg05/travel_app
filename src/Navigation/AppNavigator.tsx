@@ -35,11 +35,12 @@
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import TabNavigator from './TabNavigator';
-import PropertyDetailsScreen from '../screens/PropertyDetailsScreen';
-import DateSelectionScreen from '../screens/DateSelectionScreen';
-import TravelPartyScreen from '../screens/TravelPartyScreen';
 import BookingConfirmedScreen from '../screens/BookingConfirmedScreen';
+import DateSelectionScreen from '../screens/DateSelectionScreen';
+import ExploreScreen from '../screens/ExploreScreen';
+import PropertyDetailsScreen from '../screens/PropertyDetailsScreen';
+import TravelPartyScreen from '../screens/TravelPartyScreen';
+import TabNavigator from './TabNavigator';
 
 export type RootStackParamList = {
   Tabs: undefined;
@@ -47,6 +48,7 @@ export type RootStackParamList = {
   DateSelection: undefined;
   TravelParty: undefined;
   BookingConfirmed: undefined;
+  Explore: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -59,6 +61,7 @@ export default function AppNavigator() {
       <Stack.Screen name="DateSelection" component={DateSelectionScreen} />
       <Stack.Screen name="TravelParty" component={TravelPartyScreen} />
       <Stack.Screen name="BookingConfirmed" component={BookingConfirmedScreen} />
+      <Stack.Screen name="Explore" component={ExploreScreen} />
     </Stack.Navigator>
   );
 }

@@ -8,6 +8,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import { useMemo } from 'react';
 import { Text } from 'react-native';
 import ExploreScreen from '../screens/ExploreScreen';
+import SavedTripsScreen from '../screens/SavedTripsScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -60,7 +61,7 @@ export default function TabNavigator() {
 
       <Tab.Screen
         name="SavedTab"
-        component={DummyScreen}
+        component={SavedTripsScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="favorite-border" size={24} color={color} />

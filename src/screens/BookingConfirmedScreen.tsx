@@ -14,6 +14,8 @@ import { borderRadius, colors, shadows, spacing, typography } from '../constants
 import { PROPERTIES } from '../data/Properties';
 import { RootStackParamList } from '../Navigation/AppNavigator';
 import { useBookingStore } from '../store/bookingStore';
+import { DESTINATIONS } from '../data/destinations';
+
 
 const BookingConfirmedScreen: React.FC = () => {
 
@@ -24,7 +26,7 @@ const BookingConfirmedScreen: React.FC = () => {
   const { propertyId, dates, guests, cabinClass, resetBooking, addTrip } =
     useBookingStore();
 
-  const property = PROPERTIES.find((p) => p.id === propertyId);
+  const property = DESTINATIONS.find((p) => p.id === propertyId);
   if (!property) return null;
 
   const handleBackToTrips = () => {

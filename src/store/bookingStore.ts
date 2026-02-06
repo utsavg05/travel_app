@@ -45,6 +45,7 @@ interface BookingState {
   setGuests: (guests: Guests) => void;
   setCabinClass: (cabin: CabinClass) => void;
   resetBooking: () => void;
+  resetTrips: () => void;
 }
 
 const initialState = {
@@ -63,7 +64,7 @@ const initialState = {
 };
 
 export const useBookingStore = create<BookingState>()(
-  persist(
+  persist<BookingState>(
     (set) => ({
       ...initialState,
 
@@ -101,6 +102,9 @@ export const useBookingStore = create<BookingState>()(
           },
           cabinClass: 'business' as CabinClass,
         }),
+
+        resetTrips: () =>
+          set({ trips: [] }),
 
       addTrip: (trip) =>
         set((state) => ({

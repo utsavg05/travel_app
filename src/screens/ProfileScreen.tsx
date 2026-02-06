@@ -24,7 +24,7 @@ import { useBookingStore } from '../store/bookingStore';
 
 const ProfileScreen: React.FC = () => {
   const profile = useProfileStore();
-  const { trips, resetBooking } = useBookingStore();
+  const { trips, resetBooking, resetTrips } = useBookingStore();
 
   const initials = useMemo(() => {
     const parts = profile.name.split(' ');
@@ -52,6 +52,7 @@ const ProfileScreen: React.FC = () => {
           style: 'destructive',
           onPress: () => {
             resetBooking();
+            resetTrips();
             profile.resetProfile();
           },
         },

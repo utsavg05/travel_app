@@ -19,10 +19,10 @@ export interface Destination {
   categories: DestinationCategory[];
 
   // 👇 DETAILS SCREEN FIELDS
-  duration: string;        // e.g. "5–7 Days"
-  maxGuests: number;       // e.g. 4
-  season: string;          // e.g. "Winter"
-  bestTime: string;        // e.g. "Dec – Feb"
+  duration: string;
+  maxGuests: number;       
+  season: string;          
+  bestTime: string;        
   description: string;
   amenities: string[];
   isFeatured: boolean;
@@ -30,7 +30,6 @@ export interface Destination {
 
 
 export const DESTINATIONS: Destination[] = [
-  /* ================= INDIA ================= */
 
   {
     id: 'in-1',
@@ -58,7 +57,7 @@ export const DESTINATIONS: Destination[] = [
     country: 'India',
     location: 'Himachal Pradesh, India',
     categories: ['mountain'],
-    image: 'https://images.unsplash.com/photo-1626621341517-bb8f1b42e5b9',
+    image: 'https://plus.unsplash.com/premium_photo-1697729690458-2d64ca777c04?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     rating: 4.6,
     startingPrice: 120,
     pricePerNight: 160,
@@ -78,7 +77,7 @@ export const DESTINATIONS: Destination[] = [
     country: 'India',
     location: 'Rajasthan, India',
     categories: ['city', 'desert'],
-    image: 'https://images.unsplash.com/photo-1603262110263-fb0112e7cc33',
+    image: 'https://plus.unsplash.com/premium_photo-1697729690458-2d64ca777c04?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     rating: 4.7,
     startingPrice: 150,
     pricePerNight: 190,
@@ -98,7 +97,7 @@ export const DESTINATIONS: Destination[] = [
     country: 'India',
     location: 'Rajasthan, India',
     categories: ['city', 'desert'],
-    image: 'https://images.unsplash.com/photo-1599661046827-dacff0c0f09a',
+    image: 'https://plus.unsplash.com/premium_photo-1697729690458-2d64ca777c04?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     rating: 4.6,
     startingPrice: 140,
     pricePerNight: 180,
@@ -138,7 +137,7 @@ export const DESTINATIONS: Destination[] = [
     country: 'India',
     location: 'Andaman & Nicobar',
     categories: ['beach', 'island'],
-    image: 'https://images.unsplash.com/photo-1587502536263-9298f7f24d4d',
+    image: 'https://images.unsplash.com/photo-1617653202545-931490e8d7e7?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     rating: 4.8,
     startingPrice: 220,
     pricePerNight: 260,
@@ -198,7 +197,7 @@ export const DESTINATIONS: Destination[] = [
     country: 'India',
     location: 'Kerala, India',
     categories: ['beach'],
-    image: 'https://images.unsplash.com/photo-1600511791730-1b8d88b7d8b4',
+    image: 'https://images.unsplash.com/photo-1592726129696-4eadb95126e6?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     rating: 4.6,
     startingPrice: 160,
     pricePerNight: 200,
@@ -218,7 +217,7 @@ export const DESTINATIONS: Destination[] = [
     country: 'India',
     location: 'West Bengal, India',
     categories: ['mountain'],
-    image: 'https://images.unsplash.com/photo-1623073493843-4a0a89c4d9d2',
+    image: 'https://images.unsplash.com/photo-1622308644420-b20142dc993c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     rating: 4.5,
     startingPrice: 130,
     pricePerNight: 170,
@@ -232,7 +231,6 @@ export const DESTINATIONS: Destination[] = [
     isFeatured: false,
   },
 
-  /* ================= INTERNATIONAL ================= */
 
   {
     id: 'int-1',
@@ -240,7 +238,7 @@ export const DESTINATIONS: Destination[] = [
     country: 'Indonesia',
     location: 'Bali, Indonesia',
     categories: ['beach', 'island'],
-    image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4',
+    image: 'https://plus.unsplash.com/premium_photo-1697729690458-2d64ca777c04?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     rating: 4.9,
     startingPrice: 250,
     pricePerNight: 300,
@@ -260,7 +258,7 @@ export const DESTINATIONS: Destination[] = [
     country: 'Maldives',
     location: 'Maldives',
     categories: ['beach', 'island'],
-    image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21',
+    image: 'https://plus.unsplash.com/premium_photo-1697729690458-2d64ca777c04?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     rating: 5.0,
     startingPrice: 420,
     pricePerNight: 520,
@@ -300,7 +298,7 @@ export const DESTINATIONS: Destination[] = [
     country: 'Switzerland',
     location: 'Alps, Switzerland',
     categories: ['mountain'],
-    image: 'https://images.unsplash.com/photo-1601758064134-90a2fbd6e9d4',
+    image: 'https://plus.unsplash.com/premium_photo-1689084892324-fd8822cb97c1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     rating: 4.9,
     startingPrice: 350,
     pricePerNight: 420,

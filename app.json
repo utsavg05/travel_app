@@ -49,9 +49,15 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "eb265991-90e5-49c2-92f7-4da04ab16445"
+        "projectId": "afbd2b27-5e57-42f3-a358-c9342acde2dc"
       }
     },
-    "owner": "ugxbuilds"
+    "owner": "ugxbuilds",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/afbd2b27-5e57-42f3-a358-c9342acde2dc"
+    }
   }
 }

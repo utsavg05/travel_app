@@ -15,6 +15,7 @@ interface ProfileState {
     resetProfile: () => void;
 }
 
+// here Omit is used to exclude the setProfile and resetProfile functions from the profile state.
 const initialState: Omit<
     ProfileState,
     'setProfile' | 'resetProfile'
